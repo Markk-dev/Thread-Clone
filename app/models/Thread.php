@@ -7,14 +7,14 @@ class Thread extends Model
 {
     public function create($userId, $content, $image = null, $video = null)
     {
-        // Insert thread into the database
+        
         $stmt = $this->db->prepare("INSERT INTO threads (user_id, content, created_at) VALUES (?, ?, NOW())");
         $stmt->bind_param('is', $userId, $content);
         $stmt->execute();
 
         $threadId = $this->db->insert_id;
 
-        // Insert content if image/video exists
+        
         if ($image) {
             $imagePath = $this->uploadFile($image, 'images');
             $this->insertContent($threadId, $imagePath, 'image');
@@ -30,7 +30,7 @@ class Thread extends Model
 
     public function getThreads()
     {
-        // Fetch threads with their associated images
+        
         $stmt = $this->db->prepare("
             SELECT t.id, t.content, t.created_at, COUNT(h.id) AS hearts, c.file_path AS image
             FROM threads t
@@ -47,7 +47,7 @@ class Thread extends Model
     {
         $targetDir = BASE_PATH . '/public/uploads/' . $type . '/';
 
-        // Create directory if it doesn't exist
+        
         if (!is_dir($targetDir)) {
             mkdir($targetDir, 0777, true);
         }

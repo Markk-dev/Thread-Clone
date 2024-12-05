@@ -13,11 +13,11 @@ class FriendController extends Controller
     {
         $userId = $_SESSION['user_id'];
 
-        // Send friend request logic
+        
         $friend = new Friend();
         $friend->sendRequest($userId, $friendId);
 
-        // Redirect to the user's profile after sending request
+        
         header('Location: /profile/' . $friendId);
         exit;
     }
@@ -26,11 +26,11 @@ class FriendController extends Controller
     {
         $userId = $_SESSION['user_id'];
 
-        // Accept friend request logic
+        
         $friend = new Friend();
         $friend->acceptRequest($userId, $friendId);
 
-        // Redirect to the home page after accepting
+        
         header('Location: /home');
         exit;
     }
@@ -39,11 +39,11 @@ class FriendController extends Controller
     {
         $userId = $_SESSION['user_id'];
 
-        // Reject friend request logic
+        
         $friend = new Friend();
         $friend->rejectRequest($userId, $friendId);
 
-        // Redirect to the home page after rejecting
+        
         header('Location: /home');
         exit;
     }
@@ -52,11 +52,11 @@ class FriendController extends Controller
     {
         $userId = $_SESSION['user_id'];
 
-        // Fetch list of friends
+        
         $friend = new Friend();
         $friends = $friend->getFriends($userId);
 
-        // Load the friends list view
+        
         View::render('user/friends', compact('friends'));
     }
 }

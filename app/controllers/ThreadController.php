@@ -19,16 +19,16 @@ class ThreadController extends Controller
             $image = $_FILES['image'] ?? null;
             $video = $_FILES['video'] ?? null;
 
-            // Thread creation logic (validate input and handle file upload)
+            
             $thread = new Thread();
             $thread->create($userId, $content, $image, $video);
 
-            // Redirect to home page after creating thread
+            
             header('Location: /home');
             exit;
         }
 
-        // Load the create thread view
+        
         View::render('threads/create');
     }
 
@@ -36,11 +36,11 @@ class ThreadController extends Controller
     {
         $userId = $_SESSION['user_id'];
 
-        // Like thread logic
+        
         $heart = new Heart();
         $heart->likeThread($threadId, $userId);
 
-        // Redirect to home page after liking the post
+        
         header('Location: /home/index');
         exit;
     }
@@ -67,11 +67,11 @@ class ThreadController extends Controller
 
     public function feed()
     {
-        // Fetch threads sorted by hearts and creation date
+        
         $thread = new Thread();
         $threads = $thread->getThreads();
 
-        // Load the feed view
+        
         View::render('home/feed', compact('threads'));
     }
 
@@ -80,26 +80,26 @@ class ThreadController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $content = $_POST['content'] ?? null;
 
-            // Check and process image
+            
             $image = null;
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                 $image = $_FILES['image'];
             }
 
-            // Check and process video
+            
             $video = null;
             if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
                 $video = $_FILES['video'];
             }
 
-            // Ensure at least one of content, image, or video is provided
+            
             if (empty($content) && !$image && !$video) {
                 $_SESSION['error'] = 'Please provide content, an image, or a video.';
                 header('Location: /thread/create');
                 exit;
             }
 
-            // Save the thread
+            
             $threadModel = new Thread();
             $threadModel->create($_SESSION['user_id'], $content, $image, $video);
 
@@ -111,37 +111,37 @@ class ThreadController extends Controller
     public function heart($threadId)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userId = $_SESSION['user_id'];  // Ensure the user is logged in
+            $userId = $_SESSION['user_id'];  
     
-            // Instantiate Heart model
+            
             $heart = new Heart();
     
-            // Increment heart count by inserting or updating in the hearts table
+            
             $heart->likeThread($threadId, $userId);
     
-            // Get the updated heart count
+            
             $hearts = $heart->countHearts($threadId);
     
-            // Return the updated heart count as a JSON response
+            
             echo json_encode([
                 'success' => true,
                 'newHeartCount' => $hearts
             ]);
-            exit;  // Make sure to stop the script after the response
+            exit;  
         }
     }
 
     public function view($threadId)
     {
-        // Fetch thread details
+        
         $threadModel = new Thread();
         $thread = $threadModel->getThreadById($threadId);
 
-        // Fetch comments for the thread
+        
         $commentModel = new Comment();
         $comments = $commentModel->getComments($threadId);
 
-        // Render the view with thread and comments
+        
         View::render('threads/view', [
             'thread' => $thread,
             'comments' => $comments,

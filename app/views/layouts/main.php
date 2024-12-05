@@ -10,7 +10,7 @@
 <body class="bg-gray-900 text-white font-inter">
 
     <div class="flex min-h-screen">
-        <!-- Sidebar -->
+  
         <aside class="w-64 bg-gray-800 p-6">
             <div class="flex flex-col space-y-6">
                 <a href="/thread/create" class="text-lg font-semibold text-gray-200">Create Thread</a>
@@ -19,14 +19,14 @@
             </div>
         </aside>
 
-        <!-- Main content -->
+       
         <main class="flex-1 p-8">
-            <!-- Notification panel -->
+        
             <div class="fixed top-0 right-0 bg-gray-700 p-4 rounded-lg">
                 <p>Friend Request</p>
             </div>
 
-            <!-- Content area (dynamic content will be injected here) -->
+           
             <?php echo $content; ?>
         </main>
     </div>

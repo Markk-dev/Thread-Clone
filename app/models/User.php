@@ -8,12 +8,12 @@ class User extends Model
 {
     public function register($username, $email, $password)
     {
-        // Validate email format
+        
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new \Exception('Invalid email format');
         }
 
-        // Check if username or email already exists
+        
         $stmt = $this->db->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
         $stmt->bind_param('ss', $username, $email);
         $stmt->execute();
@@ -22,7 +22,7 @@ class User extends Model
             throw new \Exception('Username or Email already exists');
         }
 
-        // Hash password and insert user
+        
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $this->db->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param('sss', $username, $email, $hashedPassword);
@@ -33,7 +33,7 @@ class User extends Model
 
     public function login($emailOrUsername, $password)
     {
-        // Check if user exists
+        
         $stmt = $this->db->prepare("SELECT id, password FROM users WHERE email = ? OR username = ?");
         $stmt->bind_param('ss', $emailOrUsername, $emailOrUsername);
         $stmt->execute();

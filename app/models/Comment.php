@@ -12,7 +12,7 @@ class Comment extends Model
         $stmt->bind_param('iisi', $threadId, $userId, $content, $parentId);
         $stmt->execute();
 
-        // Debugging: Check for SQL errors
+        
         if ($stmt->error) {
             error_log("SQL Error: " . $stmt->error);
         }

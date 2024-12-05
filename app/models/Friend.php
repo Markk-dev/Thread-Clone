@@ -8,7 +8,7 @@ class Friend extends Model
 {
     public function sendRequest($userId, $friendId)
     {
-        // Send a friend request
+        
         $stmt = $this->db->prepare("INSERT INTO friend_requests (user_id, friend_id, status) VALUES (?, ?, 'pending')");
         $stmt->bind_param('ii', $userId, $friendId);
         $stmt->execute();
@@ -16,7 +16,7 @@ class Friend extends Model
 
     public function acceptRequest($userId, $friendId)
     {
-        // Accept a friend request and update status
+        
         $stmt = $this->db->prepare("UPDATE friend_requests SET status = 'accepted' WHERE user_id = ? AND friend_id = ?");
         $stmt->bind_param('ii', $userId, $friendId);
         $stmt->execute();
@@ -24,7 +24,7 @@ class Friend extends Model
 
     public function rejectRequest($userId, $friendId)
     {
-        // Reject a friend request and update status
+        
         $stmt = $this->db->prepare("UPDATE friend_requests SET status = 'rejected' WHERE user_id = ? AND friend_id = ?");
         $stmt->bind_param('ii', $userId, $friendId);
         $stmt->execute();
@@ -32,7 +32,7 @@ class Friend extends Model
 
     public function getFriends($userId)
     {
-        // Get all accepted friends
+        
         $stmt = $this->db->prepare("SELECT u.id, u.username FROM users u
                                     JOIN friend_requests fr ON (fr.user_id = u.id OR fr.friend_id = u.id)
                                     WHERE (fr.user_id = ? OR fr.friend_id = ?) AND fr.status = 'accepted'");

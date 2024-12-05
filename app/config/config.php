@@ -4,8 +4,8 @@ namespace App\Config;
 
 class config
 {
-    public static $environment = 'development'; // Set to 'production' for production environment
-    public static $session_lifetime = 3600; // Set session lifetime to 1 hour (3600 seconds)
+    public static $environment = 'development'; 
+    public static $session_lifetime = 3600; 
 
     public static function get($key)
     {

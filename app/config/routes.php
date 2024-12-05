@@ -31,8 +31,11 @@ return [
 
     '/heart-thread/{id}' => [ThreadController::class, 'heart'],
     '/thread/{id}/comment' => [ThreadController::class, 'comment'],
-    // '/thread/{id}' => [ThreadController::class, 'view'],
+
+    // Like routes
     '/comment/{comment_id}/like' => [CommentController::class, 'like'],
     '/comment/{comment_id}/unlike' => [CommentController::class, 'unlike'],
+
+    // Comment routes
     '/comments/{thread_id}' => [CommentController::class, 'getComments'],
 ];

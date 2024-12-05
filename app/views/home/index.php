@@ -16,15 +16,15 @@
                     <p class="text-sm text-gray-400"><?= htmlspecialchars($thread['created_at']) ?></p>
                     <p class="text-lg font-medium"><?= htmlspecialchars($thread['content']) ?></p>
                     
-                    <!-- Display Image if Exists -->
+            
                     <?php if (!empty($thread['image'])): ?>
                         <img src="/<?= htmlspecialchars($thread['image']) ?>" alt="Thread Image" class="mt-4 rounded">
                     <?php endif; ?>
 
-                    <!-- Heart Button (Using AJAX) -->
+                
                     <div class="mt-4 flex space-x-4">
                         <button class="heart-btn" data-thread-id="<?= $thread['id'] ?>">❤️ <?= $thread['hearts'] ?></button>
-                        <!-- Comment button that opens the modal -->
+                       
                         <button class="text-blue-400 hover:text-blue-600" id="openModalButton" data-thread-id="<?= $thread['id'] ?>">
                             💬 Comment
                         </button>
@@ -37,7 +37,7 @@
 
     </div>
 
-    <!-- Include the Comment Modal Component -->
+    
     <?php include __DIR__ . '/../threads/commentModal.php'; ?>
 
     <script src="/scripts/heart.js"></script>

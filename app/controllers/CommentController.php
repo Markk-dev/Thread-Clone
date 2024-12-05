@@ -27,7 +27,7 @@ class CommentController
     $commentModel = new Comment();
     $commentModel->addComment($thread_id, Session::get('user_id'), $content, $parent_id);
 
-    // Get updated list of comments
+    
     $comments = $commentModel->getComments($thread_id);
 
     echo json_encode(['success' => true, 'comments' => $comments]);
@@ -38,10 +38,10 @@ class CommentController
 public function getComments($threadId)
 {
     $commentModel = new Comment();
-    // Fetch comments by thread ID
+    
     $comments = $commentModel->getCommentsByThread($threadId);
 
-    // Build nested comments (if any)
+    
     $nestedComments = $this->buildNestedComments($comments);
 
     echo json_encode(['comments' => $nestedComments]);
@@ -73,10 +73,10 @@ private function buildNestedComments($comments, $parentId = null)
             exit;
         }
 
-        // Get comment ID to delete
+        
         $comment_id = $_GET['comment_id'];
 
-        // Delete the comment
+        
         $commentModel = new Comment();
         $commentModel->deleteComment($comment_id);
 
