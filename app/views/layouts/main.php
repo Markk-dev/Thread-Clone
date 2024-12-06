@@ -6,6 +6,7 @@
     <title>ThreadClone</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/path/to/output/tailwind.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white font-inter">
 

@@ -28,6 +28,7 @@ return [
     // Comment routes
     '/add-comment' => [CommentController::class, 'add'],
     '/delete-comment' => [CommentController::class, 'delete'],
+    '/comments/{thread_id}' => [CommentController::class, 'getComments'],
 
     '/heart-thread/{id}' => [ThreadController::class, 'heart'],
     '/thread/{id}/comment' => [ThreadController::class, 'comment'],
@@ -35,7 +36,14 @@ return [
     // Like routes
     '/comment/{comment_id}/like' => [CommentController::class, 'like'],
     '/comment/{comment_id}/unlike' => [CommentController::class, 'unlike'],
+   
+    // Edit thread
+    '/thread/edit/{id}' => [ThreadController::class, 'edit'],
 
-    // Comment routes
-    '/comments/{thread_id}' => [CommentController::class, 'getComments'],
+    // Delete thread
+    '/thread/delete/{id}' => [ThreadController::class, 'delete'],
+
+    // Update route for the thread
+    '/thread/update/{id}' => [ThreadController::class, 'update'],
 ];
+

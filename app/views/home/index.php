@@ -15,32 +15,44 @@
                 <div class="bg-gray-800 p-4 rounded mb-4">
                     <p class="text-sm text-gray-400"><?= htmlspecialchars($thread['created_at']) ?></p>
                     <p class="text-lg font-medium"><?= htmlspecialchars($thread['content']) ?></p>
-                    
-            
+
                     <?php if (!empty($thread['image'])): ?>
                         <img src="/<?= htmlspecialchars($thread['image']) ?>" alt="Thread Image" class="mt-4 rounded">
                     <?php endif; ?>
 
-                
+                    <?php if (!empty($thread['video'])): ?>
+                        <video controls class="mt-4 rounded">
+                            <source src="/<?= htmlspecialchars($thread['video']) ?>" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    <?php endif; ?>
+
                     <div class="mt-4 flex space-x-4">
                         <button class="heart-btn" data-thread-id="<?= $thread['id'] ?>">❤️ <?= $thread['hearts'] ?></button>
-                       
                         <button class="text-blue-400 hover:text-blue-600" id="openModalButton" data-thread-id="<?= $thread['id'] ?>">
                             💬 Comment
                         </button>
+                       
+                        <button class="text-green-400 hover:text-green-600">
+                            <a href="/thread/edit/<?= $thread['id'] ?>" class="no-underline">✏️ Edit</a>
+                        </button>
+
+
                     </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
             <p class="text-gray-400">No threads to display.</p>
         <?php endif; ?>
-
     </div>
 
-    
+    <!-- Include Modals -->
     <?php include __DIR__ . '/../threads/commentModal.php'; ?>
+
+
 
     <script src="/scripts/heart.js"></script>
     <script src="/scripts/modal.js"></script>
+
 </body>
 </html>
