@@ -17,9 +17,10 @@ return [
     '/auth/home' => [HomeController::class, 'index'],
     '/home' => [HomeController::class, 'index'],
 
-    // Profile routes
-    '/profile' => [ProfileController::class, 'edit'],
-    '/update-profile' => [ProfileController::class, 'update'],
+    '/profile/view' => [ProfileController::class, 'view'],
+    '/profile/edit' => [ProfileController::class, 'edit'],
+    '/profile/update'  => [ProfileController::class, 'update'],
+
 
     // Thread routes
     '/thread/create' => [ThreadController::class, 'create'],
