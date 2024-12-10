@@ -25,10 +25,16 @@
                     
                     <div class="flex">
                         <!-- profile placeholder -->
-                        <div class="bg-slate-400 w-12 h-12 rounded-full ml-2 my-4 max-w-full"></div>
-                            <div class="flex-col px-4 py-4 w-11/12">
-                                <div class="flex justify-between w-full">
-                                    <div>username here </div>
+                        <img 
+                            src="<?= !empty($thread['profile_image']) ? '/uploads/profile/' . htmlspecialchars($thread['profile_image']) : '/uploads/default/default.jpg' ?>" 
+                            alt="Profile Image" 
+                            class="w-16 h-16 rounded-full object-cover ml-2"
+                        />
+                            <div class="flex-col px-4 py-4 w-11/12 ml-[-6px]">
+                                <div class="flex justify-between w-full mt-[-10px]">
+                                    <div>
+                                        <?= isset($thread['username']) ? htmlspecialchars($thread['username']) : 'Unknown User' ?>
+                                    </div>
                                     <div>tags</div>
                                 </div>
 
@@ -40,7 +46,7 @@
                 
                     <!-- Media content (image/video) -->
                     <?php if (!empty($thread['image'])): ?>
-                        <div class="w-full h-96 overflow-hidden box-border">
+                        <div class="w-full h-90 overflow-hidden box-border">
                         <img src="/<?= htmlspecialchars($thread['image']) ?>" alt="Thread Image" class="ml-20 pb-4 max-w-full max-h-full w-auto h-auto object-contain rounded-md">
                         </div>
                     <?php endif; ?>
@@ -57,7 +63,7 @@
                     <?php endif; ?>
 
                     <!-- Button actions -->
-                    <div class="ml-16 p-1 flex items-center justify-between ">
+                    <div class="ml-20 p-1 flex items-center justify-between ">
                         <div class="flex space-x-6">
                             <!-- Heart button (like) -->
                             <button class="heart-btn text-gray-400 hover:text-red-500 flex items-center space-x-2" data-thread-id="<?= $thread['id'] ?>">

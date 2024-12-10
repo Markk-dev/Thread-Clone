@@ -30,23 +30,36 @@ class Thread extends Model
     }
 
     public function getThreads()
-    {
-        $stmt = $this->db->prepare("
-            SELECT 
-                t.id, t.content, t.created_at, COUNT(h.id) AS hearts, 
-                c.file_path AS image, 
-                v.file_path AS video
-            FROM 
-                threads t
-            LEFT JOIN hearts h ON h.thread_id = t.id
-            LEFT JOIN content c ON c.thread_id = t.id AND c.type = 'image'
-            LEFT JOIN content v ON v.thread_id = t.id AND v.type = 'video'
-            GROUP BY t.id
-            ORDER BY t.created_at DESC
-        ");
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    }
+{
+    $stmt = $this->db->prepare("
+        SELECT 
+            t.id, 
+            t.content, 
+            t.created_at, 
+            COUNT(h.id) AS hearts, 
+            c.file_path AS image, 
+            v.file_path AS video, 
+            u.username, 
+            u.profile_image
+        FROM 
+            threads t
+        LEFT JOIN 
+            hearts h ON h.thread_id = t.id
+        LEFT JOIN 
+            content c ON c.thread_id = t.id AND c.type = 'image'
+        LEFT JOIN 
+            content v ON v.thread_id = t.id AND v.type = 'video'
+        LEFT JOIN 
+            users u ON t.user_id = u.id
+        GROUP BY 
+            t.id
+        ORDER BY 
+            t.created_at DESC
+    ");
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
     
 
     private function uploadFile($file, $type)

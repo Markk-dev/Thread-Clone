@@ -52,16 +52,36 @@ class User extends Model
 
     public function getProfile($userId)
     {
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = ?");
-        $stmt->bind_param('i', $userId);
+        $stmt = $this->db->prepare("SELECT username, email, profile_image FROM users WHERE id = ?");
+        $stmt->bind_param("i", $userId);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
+
     }
 
-    public function updateProfile($userId, $username, $email)
+    public function updateProfile($userId, $username, $email, $profileImage = null)
     {
-        $stmt = $this->db->prepare("UPDATE users SET username = ?, email = ? WHERE id = ?");
-        $stmt->bind_param('ssi', $username, $email, $userId);
-        $stmt->execute();
+        if ($profileImage) {
+            $stmt = $this->db->prepare("UPDATE users SET username = ?, email = ?, profile_image = ? WHERE id = ?");
+            $stmt->bind_param("sssi", $username, $email, $profileImage, $userId);
+        } else {
+            $stmt = $this->db->prepare("UPDATE users SET username = ?, email = ? WHERE id = ?");
+            $stmt->bind_param("ssi", $username, $email, $userId);
+        }
+        return $stmt->execute();
+    }
+
+    public function updateProfilePicture($userId, $filePath)
+    {
+        $stmt = $this->db->prepare("UPDATE users SET profile_image = ? WHERE id = ?");
+        $stmt->bind_param("si", $filePath, $userId);
+        return $stmt->execute();
+    }
+
+    public function removeProfilePicture($userId)
+    {
+        $stmt = $this->db->prepare("UPDATE users SET profile_image = NULL WHERE id = ?");
+        $stmt->bind_param("i", $userId);
+        return $stmt->execute();
     }
 }

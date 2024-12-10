@@ -29,3 +29,4 @@ class UserProfile
         return $stmt->get_result()->fetch_assoc()['total'];
     }
 }
+    

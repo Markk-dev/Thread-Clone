@@ -18,7 +18,6 @@ class ProfileController
         }
 
         $user_id = Session::get('user_id');
-
         // Fetch user and profile data
         $user = new User();
         $profile = new UserProfile();
@@ -49,7 +48,7 @@ class ProfileController
         $user = new User();
         $userData = $user->getProfile($user_id);
 
-        require_once 'views/profile/editProfile.php';
+        require_once __DIR__ . '/../views/profile/editProfile.php';
     }
 
     public function update()
@@ -81,6 +80,39 @@ class ProfileController
         $user->updateProfile(Session::get('user_id'), $username, $email, $image_path);
 
         $_SESSION['success'] = 'Profile updated successfully.';
-        header('Location: /profile');
+        header('Location: /profile/view');
     }
+
+    public function uploadPhoto()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $profile_image = $_FILES['profile_image'];
+        if ($profile_image && $profile_image['error'] == 0) {
+            $uploadDir = 'uploads/profile/';
+            $fileName = uniqid() . '-' . basename($profile_image['name']);
+            $filePath = $uploadDir . $fileName;
+            move_uploaded_file($profile_image['tmp_name'], $filePath);
+
+
+            $user = new User();
+            $user->updateProfilePicture(Session::get('user_id'), $fileName); 
+
+            $_SESSION['success'] = 'Profile photo updated successfully.';
+            header('Location: /profile/view');
+            exit;
+        }
+    }
+
+    View::render('profile/uploadPhoto');
+}
+
+public function removePhoto()
+{
+    $user = new User();
+    $user->removeProfilePicture(Session::get('user_id'));
+
+    $_SESSION['success'] = 'Profile photo removed successfully.';
+    header('Location: /profile/view');
+}
+
 }

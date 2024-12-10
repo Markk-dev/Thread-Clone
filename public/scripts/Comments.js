@@ -17,15 +17,26 @@ function fetchComments(threadId) {
 // Append a comment to the list
 function appendComment(comment) {
     const commentElement = document.createElement('div');
-    commentElement.classList.add('comment', 'mb-4');
+    commentElement.classList.add('comment', 'mb-4', 'flex', 'items-start', 'space-x-4');
+
     commentElement.innerHTML = `
-        <p class="font-semibold">${comment.username}</p>
-        <p>${comment.content}</p>
-        <small class="text-gray-400">${comment.created_at}</small>
-        <button class="text-blue-400 hover:text-blue-600 replyButton" data-parent-id="${comment.id}">Reply</button>
-        <div class="replies mt-4 ml-6"></div>
+      <img 
+    src="${comment.profile_image ? '/uploads/profile/' + comment.profile_image : '/uploads/default/default.jpg'}" 
+    alt="Profile Image" 
+    class="w-10 h-10 rounded-full object-cover"
+/>
+
+
+        <div>
+            <p class="font-semibold">${comment.username}</p>
+            <p>${comment.content}</p>
+            <small class="text-gray-400">${comment.created_at}</small>
+            <button class="text-blue-400 hover:text-blue-600 replyButton" data-parent-id="${comment.id}">Reply</button>
+            <div class="replies mt-4 ml-6"></div>
+        </div>
     `;
 
+    // Handle replies
     if (comment.replies && comment.replies.length > 0) {
         const repliesList = commentElement.querySelector('.replies');
         comment.replies.forEach(reply => appendCommentToReplies(reply, repliesList));
@@ -34,17 +45,28 @@ function appendComment(comment) {
     commentsList.appendChild(commentElement);
 }
 
+
 // Append a reply to a comment's replies
 function appendCommentToReplies(reply, repliesContainer) {
     const replyElement = document.createElement('div');
-    replyElement.classList.add('ml-6', 'mt-2');
+    replyElement.classList.add('flex', 'items-start', 'space-x-4', 'mb-4');
+
     replyElement.innerHTML = `
-        <p class="font-semibold">${reply.username}</p>
-        <p>${reply.content}</p>
-        <small class="text-gray-400">${reply.created_at}</small>
+        <img 
+            src="${reply.profile_image ? '/uploads/profile/' + reply.profile_image : '/uploads/default/default.jpg'}" 
+            alt="Profile Image" 
+            class="w-8 h-8 rounded-full object-cover"
+        />
+        <div>
+            <p class="font-semibold">${reply.username}</p>
+            <p>${reply.content}</p>
+            <small class="text-gray-400">${reply.created_at}</small>
+        </div>
     `;
+
     repliesContainer.appendChild(replyElement);
 }
+
 
 // Handle reply button click
 commentsList.addEventListener('click', function (event) {

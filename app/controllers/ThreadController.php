@@ -138,58 +138,58 @@ class ThreadController extends Controller
         $thread = $threadModel->getThreadById($threadId);
         
         if (!$thread) {
-            // Redirect if the thread doesn't exist
+            
             header('Location: /');
             exit;
         }
     
-        // Load the edit thread page with thread data
+        
         View::render('config/editThread', ['thread' => $thread]);
     }
     
     public function update($threadId)
     {
-        // Get data from POST request
+        
         $content = $_POST['content'] ?? null;
     
-        // Validate the content
+        
         if (empty($content)) {
             echo json_encode(['success' => false, 'message' => 'Content is required']);
             exit;
         }
     
-        // Update the thread content
+        
         $threadModel = new Thread();
         $result = $threadModel->updateThread($threadId, $content);
     
         if ($result) {
-            header('Location: /home'); // Redirect to the thread view page
+            header('Location: /home'); 
             exit;
         } else {
-            // Handle error
+            
             echo "Failed to update thread.";
             exit;
         }
     }
     
 
-// In ThreadController.php
+
 
 public function delete($threadId)
 {
-    // Instantiate the Thread model directly
+    
     $threadModel = new Thread();
 
-    // Attempt to delete the thread
+    
     $deleted = $threadModel->deleteThread($threadId);
 
-    // Check if deletion was successful
+    
     if ($deleted) {
-        // Redirect to a confirmation page or the thread list
-        header('Location: /home');  // Redirect to threads list, for example
+        
+        header('Location: /home');  
         exit();
     } else {
-        // Handle error case (e.g., show an error message)
+        
         echo "Error: Unable to delete thread";
     }
 }

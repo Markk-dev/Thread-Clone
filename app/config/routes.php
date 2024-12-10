@@ -46,5 +46,9 @@ return [
 
     // Update route for the thread
     '/thread/update/{id}' => [ThreadController::class, 'update'],
+
+    '/profile/upload-photo' => [ProfileController::class, 'uploadPhoto'],
+    '/profile/remove-photo' => [ProfileController::class, 'removePhoto'],
+
 ];
 
