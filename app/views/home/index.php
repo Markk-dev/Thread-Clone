@@ -50,7 +50,6 @@
                         <img src="/<?= htmlspecialchars($thread['image']) ?>" alt="Thread Image" class="ml-20 pb-4 max-w-full max-h-full w-auto h-auto object-contain rounded-md">
                         </div>
                     <?php endif; ?>
-
                     <?php if (!empty($thread['video'])): ?>
                         <div class="add here">
                             <div class=" w-full h-96 overflow-hidden box-border">
