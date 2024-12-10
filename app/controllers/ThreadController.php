@@ -61,13 +61,15 @@ class ThreadController extends Controller
         View::render('threads/comments', ['comments' => $comments, 'threadId' => $threadId]);
     }
 
-    public function feed()
+        public function feed()
     {
-        $thread = new Thread();
-        $threads = $thread->getThreads();
+        $threadModel = new Thread();
+        $threads = $threadModel->getThreads();
+        $userId = $_SESSION['user_id'];
 
-        View::render('home/feed', compact('threads'));
+        View::render('home/feed', compact('threads', 'userId'));
     }
+
 
     public function save()
     {
@@ -192,6 +194,15 @@ public function delete($threadId)
         
         echo "Error: Unable to delete thread";
     }
+}
+
+
+public function isThreadOwner($threadId)
+{
+    $threadModel = new Thread();
+    $thread = $threadModel->getThreadById($threadId);
+
+    return $thread && $thread['user_id'] == $_SESSION['user_id'];
 }
 
 

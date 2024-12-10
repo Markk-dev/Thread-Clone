@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,19 +9,19 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white">
-    <div class="container mx-auto px-64 py-8 ml-[-64]">
-
+<div class="container mx-auto px-64 py-8 ml-[-64]">
         <?php if (!empty($threads)): ?>
             <?php foreach ($threads as $thread): ?>
                 <div class="bg-gray-800 p-2 rounded-lg mb-6 shadow-lg">
                     <div class="flex justify-between">
                         <p class="text-xs text-gray-400"><?= htmlspecialchars($thread['created_at']) ?></p>
-
-                        <button class="text-gray-400 hover:text-white">
-                            <a href="/thread/edit/<?= $thread['id'] ?>" class="no-underline flex items-center space-x-2 mr-2">
-                                <span class="material-icons">more_horiz</span>
-                            </a>
-                        </button>
+                        <?php if (isset($thread['user_id']) && $thread['user_id'] == $_SESSION['user_id']): ?>
+                            <button class="text-gray-400 hover:text-white">
+                                <a href="/thread/edit/<?= $thread['id'] ?>" class="no-underline flex items-center space-x-2 mr-2">
+                                    <span class="material-icons">more_horiz</span>
+                                </a>
+                            </button>
+                        <?php endif; ?>
                     </div>
                     
                     <div class="flex">
