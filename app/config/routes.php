@@ -5,6 +5,8 @@ use App\Controllers\HomeController;
 use App\Controllers\ProfileController;
 use App\Controllers\ThreadController;
 use App\Controllers\CommentController;
+use App\Controllers\UserController;
+use App\Controllers\FriendController;
 
 return [
     // Authentication routes
@@ -49,6 +51,11 @@ return [
 
     '/profile/upload-photo' => [ProfileController::class, 'uploadPhoto'],
     '/profile/remove-photo' => [ProfileController::class, 'removePhoto'],
+
+
+    '/profile/{userId}' => [UserController::class, 'viewProfile'],
+    '/friend/sendRequest/{userId}' => [FriendController::class, 'sendRequest'],
+
 
 ];
 

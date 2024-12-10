@@ -8,34 +8,35 @@ class Friend extends Model
 {
     public function sendRequest($userId, $friendId)
     {
-        
-        $stmt = $this->db->prepare("INSERT INTO friend_requests (user_id, friend_id, status) VALUES (?, ?, 'pending')");
+        // Insert a new friend request with status 'pending'
+        $stmt = $this->db->prepare("INSERT INTO friends (user_id, friend_id, status) VALUES (?, ?, 'pending')");
         $stmt->bind_param('ii', $userId, $friendId);
         $stmt->execute();
     }
 
     public function acceptRequest($userId, $friendId)
     {
-        
-        $stmt = $this->db->prepare("UPDATE friend_requests SET status = 'accepted' WHERE user_id = ? AND friend_id = ?");
+        // Update the status to 'accepted' for the given user and friend
+        $stmt = $this->db->prepare("UPDATE friends SET status = 'accepted' WHERE user_id = ? AND friend_id = ?");
         $stmt->bind_param('ii', $userId, $friendId);
         $stmt->execute();
     }
 
     public function rejectRequest($userId, $friendId)
     {
-        
-        $stmt = $this->db->prepare("UPDATE friend_requests SET status = 'rejected' WHERE user_id = ? AND friend_id = ?");
+        // Update the status to 'rejected'
+        $stmt = $this->db->prepare("UPDATE friends SET status = 'rejected' WHERE user_id = ? AND friend_id = ?");
         $stmt->bind_param('ii', $userId, $friendId);
         $stmt->execute();
     }
 
     public function getFriends($userId)
     {
-        
-        $stmt = $this->db->prepare("SELECT u.id, u.username FROM users u
-                                    JOIN friend_requests fr ON (fr.user_id = u.id OR fr.friend_id = u.id)
-                                    WHERE (fr.user_id = ? OR fr.friend_id = ?) AND fr.status = 'accepted'");
+        // Get all accepted friends for the user
+        $stmt = $this->db->prepare("SELECT u.id, u.username 
+                                    FROM users u
+                                    JOIN friends f ON (f.user_id = u.id OR f.friend_id = u.id)
+                                    WHERE (f.user_id = ? OR f.friend_id = ?) AND f.status = 'accepted'");
         $stmt->bind_param('ii', $userId, $userId);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

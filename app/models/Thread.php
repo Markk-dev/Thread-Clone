@@ -3,9 +3,18 @@ namespace App\Models;
 
 use App\Core\Model;
 use Exception;
+use App\Config\Database;
 
 class Thread extends Model
 {
+    protected $db;
+
+    public function __construct()
+    {
+        $database = new Database();
+        $this->db = $database->getConnection();
+    }
+
     public function create($userId, $content, $image = null, $video = null)
     {
         
@@ -105,44 +114,50 @@ class Thread extends Model
         return $stmt->execute();
     }
 
-   // In Thread.php Model
+   
 
 public function deleteThread($threadId)
 {
-    // Start the transaction
+    
     $this->db->begin_transaction();
 
     try {
-        // Step 1: Delete all comments related to the thread
+        
         $stmt = $this->db->prepare("DELETE FROM comments WHERE thread_id = ?");
         $stmt->bind_param('i', $threadId);
         $stmt->execute();
 
-        // Step 2: Delete all content related to the thread
+        
         $stmt = $this->db->prepare("DELETE FROM content WHERE thread_id = ?");
         $stmt->bind_param('i', $threadId);
         $stmt->execute();
 
-        // Step 3: Delete the thread itself
+        
         $stmt = $this->db->prepare("DELETE FROM threads WHERE id = ?");
         $stmt->bind_param('i', $threadId);
         $stmt->execute();
 
-        // Commit the transaction if all deletes were successful
+        
         $this->db->commit();
 
-        // Return true if the thread and all related records are deleted
+        
         return true;
 
     } catch (Exception $e) {
-        // Rollback the transaction if something goes wrong
+        
         $this->db->rollback();
-        // Log the exception if necessary
+        
         error_log($e->getMessage());
-        return false;  // Something went wrong, deletion failed
+        return false;  
     }
 }
 
-
+public function getThreadsByUserId($userId)
+{
+    $stmt = $this->db->prepare("SELECT * FROM threads WHERE user_id = ?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
 
 }

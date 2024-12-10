@@ -84,4 +84,12 @@ class User extends Model
         $stmt->bind_param("i", $userId);
         return $stmt->execute();
     }
+
+    public function getUserById($userId)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
 }

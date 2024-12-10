@@ -8,6 +8,7 @@ class View
     {
         extract($data);
         
+      
         $layoutPath = BASE_PATH . "/app/views/layouts/main.php";
         
         if (file_exists($layoutPath)) {

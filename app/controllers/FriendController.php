@@ -12,12 +12,8 @@ class FriendController extends Controller
     public function sendRequest($friendId)
     {
         $userId = $_SESSION['user_id'];
-
-        
         $friend = new Friend();
         $friend->sendRequest($userId, $friendId);
-
-        
         header('Location: /profile/' . $friendId);
         exit;
     }
