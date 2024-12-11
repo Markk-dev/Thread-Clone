@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+
 use App\Models\Friend;
 use App\Models\User;
 use App\Core\Controller;
@@ -20,39 +21,52 @@ class FriendController extends Controller
 
     public function acceptRequest($friendId)
     {
-        $userId = $_SESSION['user_id'];
+        
+        error_log("Accepting friend request for friend ID: " . $friendId);
+        $userId = $_SESSION['user_id']; 
+        
+        $friend = new Friend(); 
+        $friend->acceptRequest($userId, $friendId); 
 
         
-        $friend = new Friend();
-        $friend->acceptRequest($userId, $friendId);
-
-        
-        header('Location: /home');
+        header('Location: /friend/friendList');
         exit;
     }
 
+    
     public function rejectRequest($friendId)
     {
-        $userId = $_SESSION['user_id'];
+        $userId = $_SESSION['user_id']; 
+        
+        $friend = new Friend(); 
+        $friend->rejectRequest($userId, $friendId); 
 
         
-        $friend = new Friend();
-        $friend->rejectRequest($userId, $friendId);
-
-        
-        header('Location: /home');
+        header('Location: /friend/friendList');
         exit;
     }
 
-    public function friendsList()
+
+    
+    public function friendList()
     {
         $userId = $_SESSION['user_id'];
-
+    
         
         $friend = new Friend();
         $friends = $friend->getFriends($userId);
-
+    
         
-        View::render('user/friends', compact('friends'));
+        $pendingRequests = $friend->getFriendRequests($userId);
+    
+        
+        View::render('friends/friendList', compact('friends', 'pendingRequests'));
     }
+    
+    
+    
+
+    
+    
+
 }

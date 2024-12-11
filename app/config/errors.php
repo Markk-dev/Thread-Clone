@@ -9,7 +9,6 @@ class errors
         http_response_code(404);
         echo "404 Not Found";
     }
-
     public static function handle500()
     {
         http_response_code(500);

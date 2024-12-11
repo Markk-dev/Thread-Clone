@@ -17,23 +17,19 @@ class HomeController
             header('Location: /login');
             exit;
         }
-
         
         $thread = new Thread();
         $threads = $thread->getThreads();
 
-        
         $data = [
             'threads' => $threads,
             
             'comments' => $this->getComments(), 
         ];
-
-        
+  
         View::render('home/index', $data);
     }
 
-    
     private function getComments()
     {
         

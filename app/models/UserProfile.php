@@ -9,8 +9,8 @@ class UserProfile
 
     public function __construct()
     {
-        $database = new Database();  // Create a new instance of the Database class
-        $this->db = $database->getConnection();  // Get the database connection
+        $database = new Database();  
+        $this->db = $database->getConnection();  
     }
 
     public function getProfileByUserId($user_id)

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Models\User;
@@ -36,18 +35,15 @@ class UserController extends Controller
             exit;
         }
 
-        
         View::render('user/updateProfile');
     }
 
-    
     public function viewProfile($userId)
     {
         $userModel = new User();
         $threadModel = new Thread();
         $friendModel = new Friend();
-    
-        
+
         $userData = $userModel->getUserById($userId);
         $threads = $threadModel->getThreadsByUserId($userId);
         $friends = $friendModel->getFriends($_SESSION['user_id']);

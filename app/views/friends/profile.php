@@ -41,9 +41,9 @@
     <?php if ($_SESSION['user_id'] !== $userData['id']): ?>
         <div class="mt-8 flex space-x-4">
             <!-- Follow/Send Friend Request button -->
-            <form action="/friend/sendRequest/<?= $userData['id'] ?>" method="POST">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                    <?= $isFriend ? 'Unfriend' : 'Send Friend Request' ?>
+            <form id="friendRequestForm-<?= $thread['user_id'] ?>" action="/friend/sendRequest/<?= $thread['user_id'] ?>" method="POST">
+                <button type="submit" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" id="sendRequestButton-<?= $thread['user_id'] ?>">
+                    Send Friend Request
                 </button>
             </form>
         </div>
@@ -60,3 +60,22 @@
         <?php endforeach; ?>
     </div>
 </div>
+
+
+<script>
+    document.getElementById('friendRequestForm-<?= $thread['user_id'] ?>').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const userId = <?= $thread['user_id'] ?>;
+        const formData = new FormData(this);
+        fetch(`/friend/sendRequest/${userId}`, {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById(`sendRequestButton-${userId}`).innerText = 'Request Sent';
+                document.getElementById(`sendRequestButton-${userId}`).classList.add('bg-gray-500', 'hover:bg-gray-600');
+                document.getElementById(`sendRequestButton-${userId}`).disabled = true;
+            }
+        });
+    });
+</script>

@@ -1,16 +1,12 @@
 <?php
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
-
 define('BASE_PATH', realpath(__DIR__ . '/../'));
 
 require_once __DIR__ . '/../vendor/autoload.php';
-
+use App\Controllers\ThreadController;
 \App\Config\Session::start();
-
 $routes = require __DIR__ . '/../app/config/routes.php';
 
 $requestUri = $_SERVER['REQUEST_URI'];
@@ -26,7 +22,6 @@ foreach ($routes as $route => $handler) {
     }
 }
 
-use App\Controllers\ThreadController;
 
 $controller = new ThreadController();
 

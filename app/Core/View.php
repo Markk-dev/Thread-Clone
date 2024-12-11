@@ -6,8 +6,7 @@ class View
 {
     public static function render($view, $data = [])
     {
-        extract($data);
-        
+        extract($data);   
       
         $layoutPath = BASE_PATH . "/app/views/layouts/main.php";
         

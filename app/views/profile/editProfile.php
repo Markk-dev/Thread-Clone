@@ -1,5 +1,3 @@
-
-
 <div class="max-w-lg mx-auto mt-12 bg-gray-800 p-8 rounded-lg shadow-lg">
     <h2 class="text-xl font-bold text-white mb-4">Edit Profile</h2>
     <form action="/profile/update" method="POST">

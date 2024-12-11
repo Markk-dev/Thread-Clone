@@ -1,4 +1,3 @@
-
 <div class="max-w-md mx-auto bg-gray-800 p-8 rounded-lg">
     <h2 class="text-2xl font-semibold text-center text-gray-200 mb-6">Register</h2>
 

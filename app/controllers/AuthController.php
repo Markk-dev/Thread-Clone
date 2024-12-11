@@ -10,8 +10,6 @@ class AuthController extends Controller
 {
     public function register()
     {
-       
-        
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username = $_POST['username'];
@@ -22,18 +20,15 @@ class AuthController extends Controller
             if ($password !== $confirmPassword) {
                 $error = 'Passwords do not match.';
                 View::render('auth/register', compact('error'));
-                return; // Stop execution if passwords don't match
+                return;
             }
 
-            
             $user = new User();
             $user->register($username, $email, $password);
-
             
             header('Location: /login');
             exit;
         }
-
         
         View::render('auth/register');
     }
@@ -57,13 +52,11 @@ class AuthController extends Controller
             }
         }
 
-        
         View::render('auth/login');
     }
 
     public function logout()
     {
-        
         session_start();
         session_destroy();
 
