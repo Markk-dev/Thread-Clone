@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Comment;
-use App\Models\CommentLike;
 use App\Config\Session;
 
 class CommentController
@@ -63,46 +62,27 @@ private function buildNestedComments($comments, $parentId = null)
     }
     return $nested;
 }
+public function deleteComment()
+{
+   
+    $data = json_decode(file_get_contents("php://input"), true);
+    $commentId = $data['comment_id'];
 
-
-    public function delete()
-    {
-        if (!Session::get('user_id')) {
-            header('Location: /login');
-            exit;
-        }
-
-        $comment_id = $_GET['comment_id'];  
-        $commentModel = new Comment();
-        $commentModel->deleteComment($comment_id);
-
-        $_SESSION['success'] = 'Comment deleted successfully.';
-        header('Location: /home');
+    if (!$commentId) {
+        echo json_encode(['success' => false, 'message' => 'No comment ID provided']);
+        return;
     }
 
-    public function like($commentId)
-    {
-        $userId = Session::get('user_id');
-        $commentLikeModel = new CommentLike();
+    $commentModel = new Comment();
+    $deleteResult = $commentModel->deleteComment($commentId);
 
-        if (!$commentLikeModel->userHasLiked($commentId, $userId)) {
-            $commentLikeModel->likeComment($commentId, $userId);
-        }
-
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
-        exit;
+    if ($deleteResult) {
+        echo json_encode(['success' => true, 'message' => 'Comment deleted successfully']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Failed to delete comment']);
     }
+}
 
-    public function unlike($commentId)
-    {
-        $userId = Session::get('user_id');
-        $commentLikeModel = new CommentLike();
 
-        if ($commentLikeModel->userHasLiked($commentId, $userId)) {
-            $commentLikeModel->unlikeComment($commentId, $userId);
-        }
 
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
-        exit;
-    }
 }

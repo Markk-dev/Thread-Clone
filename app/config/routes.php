@@ -41,13 +41,12 @@ return [
     '/comment/{comment_id}/like' => [CommentController::class, 'like'],
     '/comment/{comment_id}/unlike' => [CommentController::class, 'unlike'],
 
-   
     // Edit 
     '/thread/edit/{id}' => [ThreadController::class, 'edit'],
 
     // Delete 
     '/thread/delete/{id}' => [ThreadController::class, 'delete'],
-
+    '/comment/delete' => [CommentController::class, 'deleteComment', 'methods' => ['POST']],
     // Update
     '/thread/update/{id}' => [ThreadController::class, 'update'],
 
@@ -56,11 +55,6 @@ return [
     '/profile/remove-photo' => [ProfileController::class, 'removePhoto'],
     '/profile/{userId}' => [UserController::class, 'viewProfile'],
 
-    //Friend
-    // '/friend/sendRequest/{userId}' => [FriendController::class, 'sendRequest'],
-    // '/friend/friendList' => [FriendController::class, 'friendList'],
-    // '/friend/acceptRequest/(:num)' => [FriendController::class, 'acceptRequest'],
-    // '/friend/rejectRequest/(:num)' => [FriendController::class, 'rejectRequest'],
 
     '/logout' => [AuthController::class, 'logout'],
 ];
