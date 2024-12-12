@@ -69,9 +69,6 @@ class Thread extends Model
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
-    
-
-    
 
     private function uploadFile($file, $type)
     {

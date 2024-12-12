@@ -6,6 +6,8 @@ use App\Controllers\ThreadController;
 use App\Controllers\CommentController;
 use App\Controllers\UserController;
 use App\Controllers\FriendController;
+use App\Controllers\HeartController;
+
 
 return [
 
@@ -32,12 +34,13 @@ return [
     '/delete-comment' => [CommentController::class, 'delete'],
     '/comments/{thread_id}' => [CommentController::class, 'getComments'],
 
-    '/heart-thread/{id}' => [ThreadController::class, 'heart'],
+   '/heart-thread/{id}' => [HeartController::class, 'toggleHeart', 'methods' => ['POST']],
     '/thread/{id}/comment' => [ThreadController::class, 'comment'],
 
     // Like 
     '/comment/{comment_id}/like' => [CommentController::class, 'like'],
     '/comment/{comment_id}/unlike' => [CommentController::class, 'unlike'],
+
    
     // Edit 
     '/thread/edit/{id}' => [ThreadController::class, 'edit'],
@@ -54,18 +57,11 @@ return [
     '/profile/{userId}' => [UserController::class, 'viewProfile'],
 
     //Friend
-    '/friend/sendRequest/{userId}' => [FriendController::class, 'sendRequest'],
-    '/friend/friendList' => [FriendController::class, 'friendList'],
-    '/friend/acceptRequest/(:num)' => [FriendController::class, 'acceptRequest'],
-    '/friend/rejectRequest/(:num)' => [FriendController::class, 'rejectRequest'],
+    // '/friend/sendRequest/{userId}' => [FriendController::class, 'sendRequest'],
+    // '/friend/friendList' => [FriendController::class, 'friendList'],
+    // '/friend/acceptRequest/(:num)' => [FriendController::class, 'acceptRequest'],
+    // '/friend/rejectRequest/(:num)' => [FriendController::class, 'rejectRequest'],
 
-
-
-
-
-
-
-
-
+    '/logout' => [AuthController::class, 'logout'],
 ];
 

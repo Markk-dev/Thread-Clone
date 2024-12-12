@@ -30,17 +30,6 @@ class ThreadController extends Controller
         View::render('threads/create');
     }
 
-    public function like($threadId)
-    {
-        $userId = $_SESSION['user_id'];
-
-        $heart = new Heart();
-        $heart->likeThread($threadId, $userId);
-
-        header('Location: /home/index');
-        exit;
-    }
-
     public function comment($threadId)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -100,24 +89,7 @@ class ThreadController extends Controller
         }
     }
 
-    public function heart($threadId)
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userId = $_SESSION['user_id'];  
-    
-            $heart = new Heart();
-    
-            $heart->likeThread($threadId, $userId);
-    
-            $hearts = $heart->countHearts($threadId);
-    
-            echo json_encode([
-                'success' => true,
-                'newHeartCount' => $hearts
-            ]);
-            exit;  
-        }
-    }
+
 
     public function view($threadId)
     {
@@ -173,7 +145,6 @@ class ThreadController extends Controller
             exit;
         }
     }
-    
 
 
 

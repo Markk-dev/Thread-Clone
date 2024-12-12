@@ -53,35 +53,40 @@ class ProfileController
 
     public function update()
     {
-        if (!Session::get('user_id')) {
-            header('Location: /login');
-            exit;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userId = $_SESSION['user_id'];
+            $username = $_POST['username'];
+            $email = $_POST['email'];
+            $currentPassword = $_POST['current_password'];
+            $newPassword = $_POST['new_password'];
+    
+            $user = new User();
+    
+            try {
+                $user->updateProfile($userId, $username, $email);
+    
+                if (!empty($currentPassword) && !empty($newPassword)) {
+                    $user->updatePassword($userId, $currentPassword, $newPassword);
+                }
+    
+                header('Location: /profile/view');
+                exit;
+            } catch (\Exception $e) {
+                $error = $e->getMessage();
+                
+                $userData = $user->getProfile($userId);
+                View::render('/profile/edit', compact('error', 'userData'));
+                return;
+            }
         }
-
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $profile_image = $_FILES['profile_image'] ?? null;
-
+    
         
-        if (empty($username) || empty($email)) {
-            $_SESSION['error'] = 'All fields are required.';
-            header('Location: /profile/edit');
-            exit;
-        }
-
-        $image_path = null;
-        if ($profile_image && $profile_image['error'] == 0) {
-            $image_path = 'uploads/images/' . $profile_image['name'];
-            move_uploaded_file($profile_image['tmp_name'], $image_path);
-        }
-
-        
+        $userId = $_SESSION['user_id'];
         $user = new User();
-        $user->updateProfile(Session::get('user_id'), $username, $email, $image_path);
-
-        $_SESSION['success'] = 'Profile updated successfully.';
-        header('Location: /profile/view');
+        $userData = $user->getProfile($userId);
+        View::render('profile/edit', compact('userData'));
     }
+    
 
     public function uploadPhoto()
 {

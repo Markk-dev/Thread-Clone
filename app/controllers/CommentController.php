@@ -65,7 +65,6 @@ private function buildNestedComments($comments, $parentId = null)
 }
 
 
-
     public function delete()
     {
         if (!Session::get('user_id')) {
@@ -73,10 +72,7 @@ private function buildNestedComments($comments, $parentId = null)
             exit;
         }
 
-        
-        $comment_id = $_GET['comment_id'];
-
-        
+        $comment_id = $_GET['comment_id'];  
         $commentModel = new Comment();
         $commentModel->deleteComment($comment_id);
 

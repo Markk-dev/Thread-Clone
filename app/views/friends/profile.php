@@ -37,17 +37,6 @@
         <p class="text-gray-300 mt-2"><?= htmlspecialchars($userData['description'] ?? 'No description available.') ?></p>
     </div>
 
-    <!-- Action Buttons -->
-    <?php if ($_SESSION['user_id'] !== $userData['id']): ?>
-        <div class="mt-8 flex space-x-4">
-            <!-- Follow/Send Friend Request button -->
-            <form id="friendRequestForm-<?= $thread['user_id'] ?>" action="/friend/sendRequest/<?= $thread['user_id'] ?>" method="POST">
-                <button type="submit" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" id="sendRequestButton-<?= $thread['user_id'] ?>">
-                    Send Friend Request
-                </button>
-            </form>
-        </div>
-    <?php endif; ?>
 
     <!-- User's Posts (Threads) -->
     <div class="mt-8">

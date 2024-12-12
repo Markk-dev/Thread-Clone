@@ -23,6 +23,25 @@
                 required
             />
         </div>
+        <div class="mb-4">
+            <label class="block text-white mb-2" for="current_password">Current Password:</label>
+            <input 
+                type="password" 
+                id="current_password" 
+                name="current_password" 
+                class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-blue-400"
+                required
+            />
+        </div>
+        <div class="mb-4">
+            <label class="block text-white mb-2" for="new_password">New Password:</label>
+            <input 
+                type="password" 
+                id="new_password" 
+                name="new_password" 
+                class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:ring-2 focus:ring-blue-400"
+            />
+        </div>
         <button 
             type="submit" 
             class="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"

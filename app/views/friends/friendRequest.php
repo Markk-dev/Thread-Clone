@@ -1,4 +1,4 @@
-
+<!-- 
 <h2 class="text-2xl font-bold text-white">Friend Requests</h2>
 <?php if (!empty($friendRequests)): ?>
     <ul>
@@ -20,4 +20,4 @@
     </ul>
 <?php else: ?>
     <p class="text-gray-400">No friend requests.</p>
-<?php endif; ?>
+<?php endif; ?> -->

@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="/path/to/output/tailwind.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white font-inter">
 
@@ -32,9 +31,9 @@
                     <span class="material-icons-outlined text-4xl">search</span>
                 </a>
 
-                <a href="/friend/friendList" class="text-lg font-semibold text-gray-200">
+                <!-- <a href="/friend/friendList" class="text-lg font-semibold text-gray-200">
                     <span class="material-icons-outlined text-4xl">group</span>
-                </a>
+                </a> -->
 
                 <a href="/profile/view" class="text-lg font-semibold text-gray-200">
                     <span class="material-icons-outlined text-4xl">person</span>
@@ -43,9 +42,10 @@
         </aside>
 
         <main class="flex-1 p-8">
-            <div class="fixed top-0 right-0 bg-gray-700 p-4 rounded-lg">
-                <p>Friend Request</p>
-            </div>
+
+        <div class="fixed top-0 right-0 bg-gray-700 p-4 rounded-lg">
+            <a href="/logout" class="text-white">Logout</a>
+        </div>
 
             <?php echo $content; ?>
         </main>

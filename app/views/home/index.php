@@ -38,21 +38,12 @@
                             <div>
                                 <?= isset($thread['username']) ? htmlspecialchars($thread['username']) : 'Unknown User' ?>
                             </div>
-                            <div>tags</div>
                         </div>
 
                         <div class="flex-grow">
                             <p class="text-lg font-medium"><?= htmlspecialchars($thread['content']) ?></p>
                         </div>
-
-                        <!-- Friend Request -->
-                        <?php if ($thread['user_id'] != $_SESSION['user_id']): ?>
-                            <form action="/friend/sendRequest/<?= $thread['user_id'] ?>" method="POST">
-                                <button type="submit" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-                                    Send Friend Request
-                                </button>
-                            </form>
-                        <?php endif; ?>
+                       
                     </div>
                 </div>
 
@@ -76,11 +67,17 @@
            
                 <div class="ml-20 p-1 flex items-center justify-between ">
                     <div class="flex space-x-6">
-                        <!-- Heart -->
-                        <button class="heart-btn text-gray-400 hover:text-red-500 flex items-center space-x-2" data-thread-id="<?= $thread['id'] ?>">
-                            <span class="material-icons">favorite_border</span>
+                       
+                        <?php $isHearted = isset($thread['heartedUsers']) && in_array($userId, $thread['heartedUsers']);?>
+                        <button class="heart-btn flex items-center space-x-2 <?= $isHearted ? 'text-red-500' : 'text-gray-400' ?>" data-thread-id="<?= $thread['id'] ?>">
+                            <span class="material-icons">
+                                <?= $isHearted ? 'favorite' : 'favorite_border' ?>
+                            </span>
                             <span><?= $thread['hearts'] ?></span>
                         </button>
+
+
+                    
                         <!-- Comment -->
                         <button class="text-gray-400 hover:text-blue-500 flex items-center space-x-2" id="openModalButton" data-thread-id="<?= $thread['id'] ?>">
                             <span class="material-icons">comment</span>
@@ -100,5 +97,7 @@
 <?php include __DIR__ . '/../threads/commentModal.php'; ?>
 
 <script src="/scripts/modal.js"></script>
+<script src="/scripts/heart.js"></script>
+
 </body>
 </html>

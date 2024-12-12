@@ -1,4 +1,4 @@
-<h2 class="text-2xl font-bold text-white">Friends List</h2>
+<!-- <h2 class="text-2xl font-bold text-white">Friends List</h2>
 
 
 <?php if (!empty($pendingRequests)): ?>
@@ -34,4 +34,4 @@
     </ul>
 <?php else: ?>
     <p class="text-gray-400">You have no friends yet.</p>
-<?php endif; ?>
+<?php endif; ?> -->

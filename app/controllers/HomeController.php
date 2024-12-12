@@ -36,25 +36,6 @@ class HomeController
         return [];
     }
     
-    public function add()
-    {
-        if (!Session::get('user_id')) {
-            header('Location: /login');
-            exit;
-        }
-    
-        $threadId = $_POST['thread_id'];
-    
-        
-        $heartModel = new Heart();
-        $heartModel->likeThread($threadId, Session::get('user_id'));
-    
-        
-        $hearts = $heartModel->countHearts($threadId);
-    
-        
-        echo json_encode(['success' => true, 'hearts' => $hearts]);
-    }
     
 
 }

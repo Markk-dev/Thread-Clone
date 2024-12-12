@@ -1,30 +1,32 @@
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.heart-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const threadId = this.dataset.threadId;
+            const heartIcon = this.querySelector('.material-icons');
+            const heartCountSpan = this.querySelector('span:last-child');
 
-
-
-
-document.querySelectorAll('.heart-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        let threadId = this.getAttribute('data-thread-id');
-
-        // Send AJAX request to like the thread
-        fetch(`/home/heart/` + threadId, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify({ thread_id: threadId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Update the heart count on success
-            if (data.success) {
-                this.textContent = '❤️ ' + data.newHeartCount;  // Update the heart count on the button
-            } else {
-                alert('Failed to like the thread');
-            }
-        })
-        .catch(error => console.error('Error:', error));
+            fetch(`/heart-thread/${threadId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (data.status === "hearted") {
+                            heartIcon.textContent = "favorite";
+                            heartIcon.classList.add("text-red-500");
+                            heartIcon.classList.remove("text-gray-400");
+                        } else {
+                            heartIcon.textContent = "favorite_border";
+                            heartIcon.classList.add("text-gray-400");
+                            heartIcon.classList.remove("text-red-500");
+                        }
+                        heartCountSpan.textContent = data.heartCount;
+                    }
+                })
+                .catch(err => console.error("Error toggling heart:", err));
+        });
     });
 });
-

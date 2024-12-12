@@ -92,4 +92,23 @@ class User extends Model
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
+    
+    public function updatePassword($userId, $currentPassword, $newPassword)
+    {
+        $stmt = $this->db->prepare("SELECT password FROM users WHERE id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        if (!password_verify($currentPassword, $user['password'])) {
+            throw new \Exception('Current password is incorrect.');
+        }
+
+        $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $stmt = $this->db->prepare("UPDATE users SET password = ? WHERE id = ?");
+        $stmt->bind_param("si", $hashedNewPassword, $userId);
+
+        return $stmt->execute();
+    }
 }
