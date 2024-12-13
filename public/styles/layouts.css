@@ -1,0 +1,39 @@
+body{
+    font-family: 'inter';
+    box-sizing: border-box;
+    color:aliceblue;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #121212;
+}
+
+#heroSide{
+    left: 0;
+    position: fixed;
+}
+
+#heroDiv{
+    width: 60%;
+    margin-left: -10rem;
+}
+
+#herobtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+}
+
+#heroIcon:hover{
+    color: aliceblue;
+    transition: .7s ease-in-out;
+}
+
+#herobtn:hover{
+    background-color: #1E1E1E;
+    transition: .5s ease-in-out;
+}

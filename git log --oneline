@@ -1,0 +1,11 @@
+[33mc6fe470[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Comment fixed
+[33m8676d6c[m[33m ([m[1;31morigin/main[m[33m)[m Heart Count fixed
+[33m7c34bf4[m fixed code indentations
+[33m317cb30[m User Profile validation
+[33m4b04516[m Fixed Filtration
+[33m1b5bba4[m Filtration to only edit own upload
+[33m49cbfb2[m added Profile img on nested replies, added profile config, fixed margin, added Modal for profile
+[33m25a74a5[m fixed config
+[33mb586816[m tailwindcss - postcss, fixed edit btn for update / delete issue
+[33m71d3ead[m added changes, fixed nested replies
+[33mfe0035c[m Initial commit

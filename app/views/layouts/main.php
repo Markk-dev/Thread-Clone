@@ -5,51 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThreadClone</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
- 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=logout" />
+    <link rel="stylesheet" href="/styles/layouts.css">
+    <link rel="stylesheet" href="/styles/global.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-white font-inter">
+<body class="bg-black text-white">
 
-    <div class="flex min-h-screen">
+    <div class="flex min-h-screen" id="heroDiv">
   
-        <aside class="w-[5rem] h-full bg-gray-800 p-6 fixed">
+        <aside class="w-[5rem] h-full p-6 fixed border-r-[1px] border-[#383838]" id="heroSide">
             <div class="flex flex-col space-y-16 justify-center items-center min-h-screen">
               
-                <a href="/home" class="font-semibold text-gray-200">
-                    <span class="material-icons-outlined text-4xl">home</span>
+                <a href="/home" class="font-semibold text-gray-200" id="herobtn">
+                    <span class="material-icons-outlined text-4xl" id="heroIcon">home</span>
                 </a>
 
            
-                <a href="/thread/create" class="text-lg font-semibold text-gray-200">
-                    <span class="material-icons-outlined text-4xl">add</span>
+                <a href="/thread/create" class="text-lg font-semibold text-gray-200" id="herobtn">
+                    <span class="material-icons-outlined text-4xl" id="heroIcon">add</span>
                 </a>
 
-               
-                <a href="/search" class="text-lg font-semibold text-gray-200">
-                    <span class="material-icons-outlined text-4xl">search</span>
-                </a>
-
-                <!-- <a href="/friend/friendList" class="text-lg font-semibold text-gray-200">
-                    <span class="material-icons-outlined text-4xl">group</span>
-                </a> -->
-
-                <a href="/profile/view" class="text-lg font-semibold text-gray-200">
-                    <span class="material-icons-outlined text-4xl">person</span>
+                <a href="/profile/view" class="text-lg font-semibold text-gray-200" id="herobtn">
+                    <span class="material-icons-outlined text-4xl" id="heroIcon">person</span>
                 </a>
             </div>
         </aside>
 
         <main class="flex-1 p-8">
 
-        <div class="fixed top-0 right-0 bg-gray-700 p-4 rounded-lg">
-            <a href="/logout" class="text-white">Logout</a>
+        <div class="fixed top-0 right-3 p-4 rounded-lg">
+            <a href="/logout" class="text-white">
+                <span class="material-symbols-outlined">logout</span>
+            </a>
         </div>
+
 
             <?php echo $content; ?>
         </main>
     </div>
-
 </body>
 </html>
