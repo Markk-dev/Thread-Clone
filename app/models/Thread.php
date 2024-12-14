@@ -113,41 +113,43 @@ class Thread extends Model
 
    
 
-public function deleteThread($threadId)
-{
+    public function deleteThread($threadId)
+    {
+        $this->db->begin_transaction();
     
-    $this->db->begin_transaction();
-
-    try {
-        
-        $stmt = $this->db->prepare("DELETE FROM comments WHERE thread_id = ?");
-        $stmt->bind_param('i', $threadId);
-        $stmt->execute();
-
-        
-        $stmt = $this->db->prepare("DELETE FROM content WHERE thread_id = ?");
-        $stmt->bind_param('i', $threadId);
-        $stmt->execute();
-
-        
-        $stmt = $this->db->prepare("DELETE FROM threads WHERE id = ?");
-        $stmt->bind_param('i', $threadId);
-        $stmt->execute();
-
-        
-        $this->db->commit();
-
-        
-        return true;
-
-    } catch (Exception $e) {
-        
-        $this->db->rollback();
-        
-        error_log($e->getMessage());
-        return false;  
+        try {
+            
+            $stmt = $this->db->prepare("DELETE FROM comments WHERE thread_id = ?");
+            $stmt->bind_param('i', $threadId);
+            $stmt->execute();
+    
+            
+            $stmt = $this->db->prepare("DELETE FROM content WHERE thread_id = ?");
+            $stmt->bind_param('i', $threadId);
+            $stmt->execute();
+    
+            
+            $stmt = $this->db->prepare("DELETE FROM hearts WHERE thread_id = ?");
+            $stmt->bind_param('i', $threadId);
+            $stmt->execute();
+    
+            
+            $stmt = $this->db->prepare("DELETE FROM threads WHERE id = ?");
+            $stmt->bind_param('i', $threadId);
+            $stmt->execute();
+    
+            
+            $this->db->commit();
+            return true;
+    
+        } catch (Exception $e) {
+            
+            $this->db->rollback();
+            error_log("Error deleting thread: " . $e->getMessage());
+            return false;
+        }
     }
-}
+    
 
 public function getThreadsByUserId($userId)
 {

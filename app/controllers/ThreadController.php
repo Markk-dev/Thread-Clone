@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Thread;
 use App\Models\Content;
 use App\Models\Heart;
+use App\Models\User;
 use App\Models\Comment;
 use App\Core\Controller;
 use App\Core\View;
@@ -20,14 +21,28 @@ class ThreadController extends Controller
             $image = $_FILES['image'] ?? null;
             $video = $_FILES['video'] ?? null;
 
-            $thread = new Thread();
-            $thread->create($userId, $content, $image, $video);
+            $threadModel = new Thread();
+            $threadModel->create($userId, $content, $image, $video);
 
             header('Location: /home');
             exit;
         }
 
-        View::render('threads/create');
+        // Fetch current user data for rendering
+        $userData = $this->getUserData($_SESSION['user_id']);
+
+        View::render('threads/create', ['userData' => $userData]);
+    }
+
+    private function getUserData($userId)
+    {
+        $userModel = new User();
+        $user = $userModel->getUserById($userId);
+
+        return [
+            'username' => $user['username'] ?? 'Unknown User',
+            'profile_image' => $user['profile_image'] ?? '/uploads/default/default.jpg',
+        ];
     }
 
     public function comment($threadId)
@@ -125,13 +140,6 @@ class ThreadController extends Controller
     {
         
         $content = $_POST['content'] ?? null;
-    
-        
-        if (empty($content)) {
-            echo json_encode(['success' => false, 'message' => 'Content is required']);
-            exit;
-        }
-    
         
         $threadModel = new Thread();
         $result = $threadModel->updateThread($threadId, $content);

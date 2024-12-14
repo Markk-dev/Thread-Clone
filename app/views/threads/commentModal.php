@@ -11,11 +11,11 @@
             <input type="hidden" name="parent_id" value="">
             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">Post Comment</button>
         </form>
+        
         <div class="comment" data-comment-id="1">
 
-        <div id="commentsList" class="mt-4">
-            <!-- Example Comment with Delete Button -->
-
+            <div id="commentsList" class="mt-4">
+                <!-- Render here -->
             </div>
         </div>
     </div>

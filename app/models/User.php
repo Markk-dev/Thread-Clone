@@ -59,6 +59,19 @@ class User extends Model
 
     }
 
+        public function getProfilePictureAndUsername($userId)
+    {
+        $userModel = new User();
+        $userData = $userModel->getUserById($userId);
+
+        // Return only the required data
+        return [
+            'username' => $userData['username'] ?? 'Unknown User',
+            'profile_image' => $userData['profile_image'] ?? '/uploads/default/default.jpg',
+        ];
+    }
+
+
     public function updateProfile($userId, $username, $email, $profileImage = null)
     {
         if ($profileImage) {

@@ -15,7 +15,8 @@
             <div class=" p-2 mb-3">
                 <div class="relative flex">
                 <?php if (isset($thread['user_id']) && $thread['user_id'] == $_SESSION['user_id']): ?>
-                    <button class="absolute top-0 right-0 text-gray-400 hover:text-white">
+                    <button class="absolute top-0 right-0 text-[#4a4a4aea]
+                     hover:text-white transition-all duration-700 ease-in-out">
                         <a href="/thread/edit/<?= $thread['id'] ?>" class="no-underline flex items-center space-x-2">
                             <span class="material-icons">more_horiz</span>
                         </a>
@@ -46,9 +47,6 @@
                          <?= htmlspecialchars($thread['content']) ?>
                        </p>
                     </div>
-
-
-
                        
                     </div>
                 </div>
@@ -79,14 +77,14 @@
                         
                             <?php $isHearted = isset($thread['heartedUsers']) && in_array($userId, $thread['heartedUsers']);?>
                             <button class="heart-btn flex items-center space-x-2 <?= $isHearted ? 'text-red-500' : 'text-gray-400' ?>" data-thread-id="<?= $thread['id'] ?>">
-                                <span class="material-icons">
+                                <span class="material-icons  hover:text-red-500 transition-all duration-700 ease-in-out">
                                     <?= $isHearted ? 'favorite' : 'favorite_border' ?>
                                 </span>
-                                <span><?= $thread['hearts'] ?></span>
+                                <span class="text-xs text-red-500"><?= $thread['hearts'] ?></span>
                             </button>
                         
                             <!-- Comment -->
-                            <button class="text-gray-400 hover:text-blue-500 flex items-center space-x-2" id="openModalButton" data-thread-id="<?= $thread['id'] ?>">
+                            <button class="text-gray-400 text-sm hover:text-blue-500 transition-all duration-700 ease-in-out flex items-center space-x-2" id="openModalButton" data-thread-id="<?= $thread['id'] ?>">
                                 <span class="material-icons">comment</span>
                                 <span>Comment</span>
                             </button>

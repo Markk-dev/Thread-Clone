@@ -20,7 +20,7 @@
                     <label for="content" class="block text-sm font-medium text-gray-300 mt-3 ml[-2px] mb-3">Content</label>
                     <div class="mt-">
                       <textarea id="content" name="content" class="mt-1 block w-full p-2 border border-[#afaaaa] bg-black text-white rounded-[5px] resize-none" 
-                       rows="2"><?= htmlspecialchars($thread['content']) ?></textarea>
+                       rows="2"><?= htmlspecialchars($thread['content'])?></textarea>
                      </div>
                 </div>
 

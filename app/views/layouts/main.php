@@ -20,16 +20,16 @@
             <div class="flex flex-col space-y-16 justify-center items-center min-h-screen">
               
                 <a href="/home" class="font-semibold text-gray-200" id="herobtn">
-                    <span class="material-icons-outlined text-4xl" id="heroIcon">home</span>
+                    <span class="material-icons-outlined text-4xl hover:text-yellow-400 transition-all duration-1000" id="heroIcon">home</span>
                 </a>
 
            
                 <a href="/thread/create" class="text-lg font-semibold text-gray-200" id="herobtn">
-                    <span class="material-icons-outlined text-4xl" id="heroIcon">add</span>
+                    <span class="material-icons-outlined text-4xl hover:text-orange-400 transition-all duration-1000" id="heroIcon">add</span>
                 </a>
 
                 <a href="/profile/view" class="text-lg font-semibold text-gray-200" id="herobtn">
-                    <span class="material-icons-outlined text-4xl" id="heroIcon">person</span>
+                    <span class="material-icons-outlined text-4xl hover:text-blue-400 transition-all duration-1000" id="heroIcon">person</span>
                 </a>
             </div>
         </aside>
@@ -38,11 +38,10 @@
 
         <div class="fixed top-0 right-3 p-4 rounded-lg">
             <a href="/logout" class="text-white">
-                <span class="material-symbols-outlined">logout</span>
+                <span class="material-symbols-outlined text-[#4a4a4aea] hover:text-white transition-all
+                duration-700 ease-in-out">logout</span>
             </a>
         </div>
-
-
             <?php echo $content; ?>
         </main>
     </div>
