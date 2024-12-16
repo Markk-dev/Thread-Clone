@@ -1,3 +1,9 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}?>
+
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -16,6 +22,7 @@
 
     <div class="flex min-h-screen" id="heroDiv">
   
+    <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
         <aside class="w-[5rem] h-full p-6 fixed border-r-[1px] border-[#383838]" id="heroSide">
             <div class="flex flex-col space-y-16 justify-center items-center min-h-screen">
               
@@ -33,6 +40,7 @@
                 </a>
             </div>
         </aside>
+    <?php endif; ?>
 
         <main class="flex-1 p-8">
 

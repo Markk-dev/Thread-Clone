@@ -38,37 +38,38 @@ class AuthController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $emailOrUsername = $_POST['email_or_username'];
             $password = $_POST['password'];
-
-            
+    
             $user = new User();
             if ($user->login($emailOrUsername, $password)) {
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
                 
+                $_SESSION['logged_in'] = true;
+    
                 header('Location: /home');
                 exit;
             } else {
-                
                 $error = 'Invalid credentials';
                 View::render('auth/login', compact('error'));
             }
         }
-
+    
         View::render('auth/login');
     }
+    
 
-    public function logout()
-    {
-        
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-    
-        
-        session_destroy();
-    
-        
-        header('Location: /login');
-        exit;
+   public function logout()
+{
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
     }
+
+    session_destroy();
+
+    header('Location: /login');
+    exit;
+}
     
     
 }
