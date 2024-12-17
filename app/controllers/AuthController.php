@@ -9,29 +9,43 @@ use App\Core\View;
 class AuthController extends Controller
 {
     public function register()
-    {
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $confirmPassword = $_POST['confirm_password'];
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $_POST['username'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $confirmPassword = $_POST['confirm_password'];
+        if ($password !== $confirmPassword) {
+            $error = 'Passwords do not match.';
+            View::render('auth/register', compact('error'));
+            return;
+        }
 
-            if ($password !== $confirmPassword) {
-                $error = 'Passwords do not match.';
-                View::render('auth/register', compact('error'));
-                return;
-            }
+          
+          if (strlen($password) < 6) {
+            $error = 'Password must be at least 6 characters long.';
+            View::render('auth/register', compact('error'));
+            return;
+        }
 
-            $user = new User();
+        $user = new User();
+
+        try {
+            // Attempt to register the user
             $user->register($username, $email, $password);
-            
             header('Location: /login');
             exit;
+        } catch (\Exception $e) {
+            // Catch any exception (like username or email already exists) and pass the error to the view
+            $error = $e->getMessage();
+            View::render('auth/register', compact('error'));
+            return;
         }
-        
-        View::render('auth/register');
     }
+
+    View::render('auth/register');
+}
 
     public function login()
     {

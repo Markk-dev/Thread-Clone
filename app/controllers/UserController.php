@@ -6,9 +6,16 @@ use App\Models\Thread;
 use App\Models\Friend;
 use App\Core\Controller;
 use App\Core\View;
+use App\Models\UserProfile;
+
 
 class UserController extends Controller
 {
+    private $userProfileModel;
+    public function __construct()
+    {
+        $this->userProfileModel = new UserProfile();
+    }
     public function profile($userId)
     {
         
@@ -17,6 +24,21 @@ class UserController extends Controller
 
         
         View::render('user/profile', compact('userData'));
+    }
+
+    public function showUserProfile($userId)
+    {
+        // Get user profile information
+        $profile = $this->userProfileModel->getProfileByUserId($userId);
+        
+        // Get the total threads for the user
+        $totalThreads = $this->userProfileModel->getTotalThreads($userId);
+
+        // You can now use $profile and $totalThreads to show in your view
+        return [
+            'profile' => $profile,
+            'totalThreads' => $totalThreads
+        ];
     }
 
     public function updateProfile()
@@ -42,18 +64,14 @@ class UserController extends Controller
     {
         $userModel = new User();
         $threadModel = new Thread();
-        $friendModel = new Friend();
 
         $userData = $userModel->getUserById($userId);
         $threads = $threadModel->getThreadsByUserId($userId);
-        $friends = $friendModel->getFriends($_SESSION['user_id']);
-        $isFriend = in_array($userId, array_column($friends, 'id'));
     
         
         View::render('friends/profile', [ 
             'userData' => $userData,
             'threads' => $threads,
-            'isFriend' => $isFriend,
             'currentUserId' => $_SESSION['user_id']
         ]);
     }

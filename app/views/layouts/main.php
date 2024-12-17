@@ -26,11 +26,15 @@ if (session_status() == PHP_SESSION_NONE) {
         <aside class="w-[5rem] h-full p-6 fixed border-r-[1px] border-[#383838]" id="heroSide">
             <div class="flex flex-col space-y-16 justify-center items-center min-h-screen">
               
+            <a href="/search" class="text-lg font-semibold text-gray-200" id="herobtn">
+                <span class="material-icons-outlined text-4xl hover:text-green-400 transition-all duration-1000" id="heroIcon">search</span>
+            </a>
+
+
                 <a href="/home" class="font-semibold text-gray-200" id="herobtn">
                     <span class="material-icons-outlined text-4xl hover:text-yellow-400 transition-all duration-1000" id="heroIcon">home</span>
                 </a>
 
-           
                 <a href="/thread/create" class="text-lg font-semibold text-gray-200" id="herobtn">
                     <span class="material-icons-outlined text-4xl hover:text-orange-400 transition-all duration-1000" id="heroIcon">add</span>
                 </a>
@@ -39,6 +43,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     <span class="material-icons-outlined text-4xl hover:text-blue-400 transition-all duration-1000" id="heroIcon">person</span>
                 </a>
             </div>
+
         </aside>
     <?php endif; ?>
 

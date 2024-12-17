@@ -5,6 +5,7 @@ use App\Core\Model;
 use Exception;
 use App\Config\Database;
 
+
 class Thread extends Model
 {
     protected $db;
@@ -66,6 +67,7 @@ class Thread extends Model
             ORDER BY 
                 t.created_at DESC
         ");
+
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
@@ -151,12 +153,66 @@ class Thread extends Model
     }
     
 
-public function getThreadsByUserId($userId)
+    public function getThreadsByUserId($userId)
+    {
+        $stmt = $this->db->prepare("
+            SELECT 
+                t.id, 
+                t.content, 
+                t.created_at, 
+                u.username, 
+                u.profile_image, 
+                c.file_path AS image, 
+                v.file_path AS video
+            FROM 
+                threads t
+            LEFT JOIN 
+                users u ON t.user_id = u.id
+            LEFT JOIN 
+                content c ON c.thread_id = t.id AND c.type = 'image'
+            LEFT JOIN 
+                content v ON v.thread_id = t.id AND v.type = 'video'
+            WHERE 
+                t.user_id = ?
+            ORDER BY 
+                t.created_at DESC
+        ");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+    
+
+public function searchThreads($query)
 {
-    $stmt = $this->db->prepare("SELECT * FROM threads WHERE user_id = ?");
-    $stmt->bind_param("i", $userId);
+    $searchTerm = '%' . $query . '%';
+
+    $stmt = $this->db->prepare("
+        SELECT 
+            t.id, 
+            t.content, 
+            t.created_at, 
+            u.username, 
+            u.profile_image
+        FROM 
+            threads t
+        LEFT JOIN 
+            users u ON t.user_id = u.id
+        WHERE 
+            t.content LIKE ? 
+        OR 
+            t.title LIKE ? 
+        OR 
+            u.username LIKE ?
+        ORDER BY 
+            t.created_at DESC
+    ");
+
+    $stmt->bind_param('sss', $searchTerm, $searchTerm, $searchTerm);
     $stmt->execute();
+    
     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
+
 
 }

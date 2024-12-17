@@ -12,7 +12,7 @@ use App\Core\View;
 
 
 class ThreadController extends Controller
-{
+{   
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -183,7 +183,5 @@ public function isThreadOwner($threadId)
 
     return $thread && $thread['user_id'] == $_SESSION['user_id'];
 }
-
-
 
 }

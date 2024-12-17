@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,8 +60,6 @@
                     Post Thread
                 </button>
             </div>
-
-            
             <div>
                
             </div>

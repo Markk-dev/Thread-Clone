@@ -64,7 +64,7 @@ class User extends Model
         $userModel = new User();
         $userData = $userModel->getUserById($userId);
 
-        // Return only the required data
+        
         return [
             'username' => $userData['username'] ?? 'Unknown User',
             'profile_image' => $userData['profile_image'] ?? '/uploads/default/default.jpg',
@@ -124,5 +124,23 @@ class User extends Model
 
         return $stmt->execute();
     }
+
+    public function searchUsers($query)
+    {
+        $sql = "SELECT * FROM users WHERE username LIKE ? ORDER BY created_at DESC";
+        $stmt = $this->db->prepare($sql);
+        $likeQuery = "%" . $query . "%";
+        $stmt->bind_param("s", $likeQuery);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+public function getThreadsByUserId($userId)
+{
+    $stmt = $this->db->prepare("SELECT * FROM threads WHERE user_id = ? ORDER BY created_at DESC");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
 
 }

@@ -1,3 +1,13 @@
+<?php
+include_once 'components/FormHandler.php';
+
+$formHandler = new FormHandler();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $formHandler->handleLogin($_POST);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,14 +43,13 @@
                         class="w-[28rem] ml-[1em] hover:bg-blue-500 transition duration-500 ease-in-out bg-gray-700 text-white py-2 rounded-md">Login</button>
                     </form>
                 </div>
-          
 
             </div>
         </div>
     </section>
 
     <div class="HeroRegister">
-        <a href="/register" class="text-blue-200 hover:text-blue-600 transition-all duration-500 ease-in-out text-[12px]">Don't have an account? Register here</a>
+        <a href="/register" class="text-blue-200 hover:text-red-500 transition-all duration-500 ease-in-out text-[12px]">Don't have an account? Register here</a>
     </div>
     
 

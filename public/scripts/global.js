@@ -8,3 +8,19 @@ document.getElementById("cards").onmousemove = e => {
       card.style.setProperty("--mouse-y", `${y}px`);
     };
   }
+
+  function openEditProfileModal() {
+    document.getElementById('editProfileModal').classList.remove('hidden');
+}
+
+function closeEditProfileModal() {
+    document.getElementById('editProfileModal').classList.add('hidden');
+}
+
+function openUploadPhotoModal() {
+    document.getElementById('uploadPhotoModal').classList.remove('hidden');
+}
+
+function closeUploadPhotoModal() {
+    document.getElementById('uploadPhotoModal').classList.add('hidden');
+}

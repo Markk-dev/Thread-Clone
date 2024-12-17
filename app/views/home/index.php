@@ -6,13 +6,15 @@
     <title>Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="bg-gray-900 text-white">
 
 <div class="container mx-auto px-18 py-18">
+
     <?php if (!empty($threads)): ?>
         <?php foreach ($threads as $thread): ?>
-            <div class=" p-2 mb-3">
+            <div class="p-2 mb-3">
                 <div class="relative flex">
                 <?php if (isset($thread['user_id']) && $thread['user_id'] == $_SESSION['user_id']): ?>
                     <button class="absolute top-0 right-0 text-[#4a4a4aea]
@@ -47,9 +49,8 @@
                          <?= htmlspecialchars($thread['content']) ?>
                        </p>
                     </div>
-                       
+                        </div>
                     </div>
-                </div>
 
                <div class="flex-col border-[1px] border-[#383838] py-2">
                     <?php if (!empty($thread['image'])): ?>
@@ -69,10 +70,9 @@
                             </video>
                         </div>
                     <?php endif; ?>
-              
-                </div>
+               </div>
 
-                    <div class="ml-20 py-2 flex items-center justify-between ">
+                    <div class="ml-20 py-2 flex items-center justify-between">
                         <div class="flex space-x-6">
                         
                             <?php $isHearted = isset($thread['heartedUsers']) && in_array($userId, $thread['heartedUsers']);?>
@@ -95,6 +95,7 @@
             <hr class=" border-t-1 border-gray-600" />
 
         <?php endforeach; ?>
+
     <?php else: ?>
         <p class="text-gray-400">No threads to display.</p>
     <?php endif; ?>
@@ -105,6 +106,5 @@
 
 <script src="/scripts/modal.js"></script>
 <script src="/scripts/heart.js"></script>
-
 </body>
 </html>

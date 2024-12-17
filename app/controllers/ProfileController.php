@@ -119,5 +119,4 @@ public function removePhoto()
     $_SESSION['success'] = 'Profile photo removed successfully.';
     header('Location: /profile/view');
 }
-
 }

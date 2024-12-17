@@ -5,12 +5,9 @@ use App\Controllers\ProfileController;
 use App\Controllers\ThreadController;
 use App\Controllers\CommentController;
 use App\Controllers\UserController;
-use App\Controllers\FriendController;
 use App\Controllers\HeartController;
-
-
+use App\Controllers\SearchController; // Add the SearchController
 return [
-
     // Authentication 
     '/' => [AuthController::class, 'login'],
     '/login' => [AuthController::class, 'login'],
@@ -34,7 +31,7 @@ return [
     '/delete-comment' => [CommentController::class, 'delete'],
     '/comments/{thread_id}' => [CommentController::class, 'getComments'],
 
-   '/heart-thread/{id}' => [HeartController::class, 'toggleHeart', 'methods' => ['POST']],
+    '/heart-thread/{id}' => [HeartController::class, 'toggleHeart', 'methods' => ['POST']],
     '/thread/{id}/comment' => [ThreadController::class, 'comment'],
 
     // Like 
@@ -47,15 +44,22 @@ return [
     // Delete 
     '/thread/delete/{id}' => [ThreadController::class, 'delete'],
     '/comment/delete' => [CommentController::class, 'deleteComment', 'methods' => ['POST']],
+
     // Update
     '/thread/update/{id}' => [ThreadController::class, 'update'],
 
-    //Profile
+    // Profile
     '/profile/upload-photo' => [ProfileController::class, 'uploadPhoto'],
     '/profile/remove-photo' => [ProfileController::class, 'removePhoto'],
     '/profile/{userId}' => [UserController::class, 'viewProfile'],
 
+    // Search
+   // Search functionality
+      
+'/search' => [SearchController::class, 'search'],  
+'/search' => [SearchController::class, 'showSearchPage'],  // Show search page with query form
+'/search/users' => [SearchController::class, 'searchUsers'],  // For searching users
+'/search/threads' => [SearchController::class, 'searchThreads'],  // For searching threads
 
-    '/logout' => [AuthController::class, 'logout'],
 ];
 
