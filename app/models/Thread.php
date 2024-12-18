@@ -113,7 +113,6 @@ class Thread extends Model
         return $stmt->execute();
     }
 
-   
 
     public function deleteThread($threadId)
     {
@@ -182,37 +181,6 @@ class Thread extends Model
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
     
-
-public function searchThreads($query)
-{
-    $searchTerm = '%' . $query . '%';
-
-    $stmt = $this->db->prepare("
-        SELECT 
-            t.id, 
-            t.content, 
-            t.created_at, 
-            u.username, 
-            u.profile_image
-        FROM 
-            threads t
-        LEFT JOIN 
-            users u ON t.user_id = u.id
-        WHERE 
-            t.content LIKE ? 
-        OR 
-            t.title LIKE ? 
-        OR 
-            u.username LIKE ?
-        ORDER BY 
-            t.created_at DESC
-    ");
-
-    $stmt->bind_param('sss', $searchTerm, $searchTerm, $searchTerm);
-    $stmt->execute();
-    
-    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-}
 
 
 }

@@ -25,10 +25,6 @@ if (session_status() == PHP_SESSION_NONE) {
     <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
         <aside class="w-[5rem] h-full p-6 fixed border-r-[1px] border-[#383838]" id="heroSide">
             <div class="flex flex-col space-y-16 justify-center items-center min-h-screen">
-              
-            <a href="/search" class="text-lg font-semibold text-gray-200" id="herobtn">
-                <span class="material-icons-outlined text-4xl hover:text-green-400 transition-all duration-1000" id="heroIcon">search</span>
-            </a>
 
 
                 <a href="/home" class="font-semibold text-gray-200" id="herobtn">

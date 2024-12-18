@@ -28,7 +28,7 @@ class ThreadController extends Controller
             exit;
         }
 
-        // Fetch current user data for rendering
+        
         $userData = $this->getUserData($_SESSION['user_id']);
 
         View::render('threads/create', ['userData' => $userData]);
@@ -136,24 +136,38 @@ class ThreadController extends Controller
         View::render('config/editThread', ['thread' => $thread]);
     }
     
-    public function update($threadId)
+    public function update($threadId, $message = 'An error occurred during the update.')
     {
-        
         $content = $_POST['content'] ?? null;
+    
+        $image = null;
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $image = $_FILES['image'];
+        }
+    
+        $video = null;
+        if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
+            $video = $_FILES['video'];
+        }
+    
         
+        if (empty($content) && !$image && !$video) {
+            header('Location: /home');
+            return;
+        }
+    
         $threadModel = new Thread();
-        $result = $threadModel->updateThread($threadId, $content);
+        $result = $threadModel->updateThread($threadId, $content, $image, $video);
     
         if ($result) {
-            header('Location: /home'); 
+            header('Location: /home');
             exit;
         } else {
-            
-            echo "Failed to update thread.";
-            exit;
+            header('Location: /home');
         }
     }
-
+    
+    
 
 
 public function delete($threadId)

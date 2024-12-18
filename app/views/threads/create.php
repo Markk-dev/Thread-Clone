@@ -22,13 +22,6 @@
             <span class="ml-4 font-semibold"><?= htmlspecialchars($userData['username']) ?></span>
         </div>
      
-        <!-- <?php if (isset($_SESSION['error'])): ?>
-            <div class="bg-red-600 text-white p-4 rounded mb-4">
-                <?= htmlspecialchars($_SESSION['error']) ?>
-                <?php unset($_SESSION['error']); ?>
-            </div>
-        <?php endif; ?> -->
-
         <form action="/save-thread" method="POST" enctype="multipart/form-data" class="space-y-4">
         
             <div class="ml-[4.5rem] mt-[-20px]">

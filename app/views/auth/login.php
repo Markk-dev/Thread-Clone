@@ -1,12 +1,3 @@
-<?php
-include_once 'components/FormHandler.php';
-
-$formHandler = new FormHandler();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $formHandler->handleLogin($_POST);
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">

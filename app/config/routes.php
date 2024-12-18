@@ -6,7 +6,9 @@ use App\Controllers\ThreadController;
 use App\Controllers\CommentController;
 use App\Controllers\UserController;
 use App\Controllers\HeartController;
-use App\Controllers\SearchController; // Add the SearchController
+
+
+
 return [
     // Authentication 
     '/' => [AuthController::class, 'login'],
@@ -53,13 +55,8 @@ return [
     '/profile/remove-photo' => [ProfileController::class, 'removePhoto'],
     '/profile/{userId}' => [UserController::class, 'viewProfile'],
 
-    // Search
-   // Search functionality
-      
-'/search' => [SearchController::class, 'search'],  
-'/search' => [SearchController::class, 'showSearchPage'],  // Show search page with query form
-'/search/users' => [SearchController::class, 'searchUsers'],  // For searching users
-'/search/threads' => [SearchController::class, 'searchThreads'],  // For searching threads
+
+ 
 
 ];
 

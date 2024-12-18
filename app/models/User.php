@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Core\Model;
-
+USE PDO;
 class User extends Model
 {
     public function register($username, $email, $password)
@@ -127,12 +127,18 @@ class User extends Model
 
     public function searchUsers($query)
     {
-        $sql = "SELECT * FROM users WHERE username LIKE ? ORDER BY created_at DESC";
-        $stmt = $this->db->prepare($sql);
-        $likeQuery = "%" . $query . "%";
-        $stmt->bind_param("s", $likeQuery);
+        $stmt = $this->db->prepare("SELECT id, username, profile_image FROM users WHERE username LIKE ? LIMIT 5");
+        $searchTerm = "%{$query}%";
+        $stmt->bind_param('s', $searchTerm);
         $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $result = $stmt->get_result();
+
+        $users = [];
+        while ($row = $result->fetch_assoc()) {
+            $users[] = $row;
+        }
+        
+        return $users;
     }
 
 public function getThreadsByUserId($userId)
@@ -142,5 +148,6 @@ public function getThreadsByUserId($userId)
     $stmt->execute();
     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 }
+
 
 }

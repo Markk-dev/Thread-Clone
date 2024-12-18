@@ -28,13 +28,13 @@ class UserController extends Controller
 
     public function showUserProfile($userId)
     {
-        // Get user profile information
+        
         $profile = $this->userProfileModel->getProfileByUserId($userId);
         
-        // Get the total threads for the user
+        
         $totalThreads = $this->userProfileModel->getTotalThreads($userId);
 
-        // You can now use $profile and $totalThreads to show in your view
+        
         return [
             'profile' => $profile,
             'totalThreads' => $totalThreads
@@ -75,5 +75,5 @@ class UserController extends Controller
             'currentUserId' => $_SESSION['user_id']
         ]);
     }
-    
+ 
 }
